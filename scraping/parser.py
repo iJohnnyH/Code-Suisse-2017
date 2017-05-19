@@ -1,9 +1,8 @@
 from bs4 import BeautifulSoup
-import urllib
+import urllib.request
 
-url = "https://finance.yahoo.com/quote/AAPL/options?p=AAPL&straddle=true&date=1496361600"
-html = urllib.urlopen(url)
-text = html.read()
+url = urllib.request.urlopen("http://finance.yahoo.com/quote/AAPL/options?p=AAPL&straddle=true&date=1496361600")
+text = url.read()
 soup = BeautifulSoup(text, 'lxml')
 calls = soup.find_all("td" , {"class" : "data-col0 Ta(end) Pstart(10px)"})
 strikes = soup.find_all("td" , {"class" : "data-col5 Ta(c) Px(10px)"})
