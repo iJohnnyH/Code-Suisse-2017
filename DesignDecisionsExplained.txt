@@ -1,0 +1,21 @@
+Our approach to this problem was handled in 4 separate parts. The four parts were retrieving stock price data and plotting it, 
+web scraping for events and option prices, finding a way to locally host the webapp, and designing the front-end html files and calendar. 
+We decided that we should first find a way to automatically retrieve financial information. Older APIs such as Google Finance and Yahoo 
+Finance were no longer supported and therefore we had to find a new solution. We came upon a library called quandl that was supported in 
+Python and we also knew that there were many graphing libraries in Python, therefore we decided Python was our best option. After initially
+plotting the stock prices using data from quandl and the library Plot.ly, we webscraped for event dates. The event dates that we scraped 
+were put in a marquee above the graph to suggest potential high-impact event dates that could benefit from using our prediction model.
+We originally planned for the user to be able to search any company ticker and use our model for that company. We completed the scraping
+and majority of the code for this function but didn't end up implementing it due to time constraints. 
+
+Architecture
+    init.py
+        -Flask file that establishes a local server and runs the html and python files
+    master_parse.py
+        -Python file that does all of the webscrapping, stock price retrieval, and data plotting
+    templates
+        -Contains a combination of bootstrap files as well as our html files that display the graph
+    static
+        -Bootstrap css and javascript files for the web app
+    Pikaday
+        -Javascript project that was used for the calendar date selector
