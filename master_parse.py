@@ -86,7 +86,7 @@ def StockPricePlot(stockprice,UTC,high,low,companyid):
 	# IPython notebook
 	# py.iplot(fig, filename='pandas/line-plot-title')
 
-	url = py.plot(fig, filename='stockprice-history')
+	url = py.plot(fig, filename='stockprice-history',auto_open = False)
 	#print(tls.get_embed("https://plot.ly/~jledinh/1/apple-stockprice-history/#plot"))
 
 def UTCtoDateTime(dateID):
