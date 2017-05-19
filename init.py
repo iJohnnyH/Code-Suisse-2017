@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import scraping/master_parse
 
 app = Flask(__name__)
 
