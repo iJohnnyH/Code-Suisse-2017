@@ -7,7 +7,10 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon.ico">
+  <link rel="icon" href="favicon.ico"><meta charset="utf-8">
+    
+  <link rel="stylesheet" href="static/calendarForm/css/pikaday.css">
+  <link rel="stylesheet" href="static/calendarForm/css/site.css">
 
   <title>Starter Template for Bootstrap</title>
 
@@ -32,6 +35,8 @@
     </head>
 
     <body>
+        
+   
 
       <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -57,7 +62,28 @@
       <div class="container">
         <div class="starter-template">
           <h1>AAPL Graph</h1>
-          <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+            
+            <label for="datepicker"><h2>Event Date:</h2></label>
+            <br>
+            <input type="text" id="datepicker">
+            
+            <br/>
+            <script src="static/calendarForm/pikaday.js"></script>
+            <script>
+                var x = ""
+                var picker = new Pikaday(
+                    {
+                        field: document.getElementById('datepicker'),
+                        firstDay: 1,
+                        minDate: new Date(),
+                        maxDate: new Date(2020, 12, 31),
+                        yearRange: [2000,2020], 
+                        onSelect: function() {
+                            x = picker.toString();
+                            window.location.href="/"+x;
+                        }
+                    });
+            </script>
         </div>
         <div>
           <form action = "/newCompany" method = "post">
@@ -66,12 +92,6 @@
         </div>
         <div>
           <iframe width="900" height="800" frameborder="0" scrolling="no" src="https://plot.ly/~jledinh/1.embed"></iframe>
-        </div>
-        <div>
-          <form>
-            Event Date
-            <input type="date" name="bday">
-          </form>
         </div>
 
       </div><!-- /.container -->
