@@ -23,7 +23,7 @@ def DateParse(timestamp,companyid):
 		tag = dateChoices[x]
 		dateID.append(tag['value'])
 	i = 0
-	while (timestamp > int(dateID[i])):
+	while (timestamp >= int(dateID[i])):
 		i +=1;
 	return dateID[i];
 
