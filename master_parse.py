@@ -48,8 +48,9 @@ def StrikeParse(dateID,currentprice,companyid):
 	delta = (((float)(calls[index].text) + (float)(puts[index].text))/lastStockPrice) * 100;
 	return delta
 #Retrieves stock price data
-def StockPricePlot(stockprice,UTC,high,low,companyid): 
-	
+def StockPricePlot(stockprice,UTC,high,low,companyid,percent): 
+	percent = float("{0:.2f}".format(percent))
+	a = "Predicted Movement " + str(percent) + "%"
 	data = [
 	    go.Scatter(
 	        x=stockprice.reset_index()['Date'], # assign x as the dataframe column 'x'
@@ -59,7 +60,7 @@ def StockPricePlot(stockprice,UTC,high,low,companyid):
 	    go.Scatter(
 	    	x=[UTC,UTC],
 	    	y=[high,low],
-	    	name = 	"Predicted Range of Movement"
+	    	name = 	a
 	    )
 	]
 
@@ -92,4 +93,4 @@ def main(n, stockindex, companyid):
 	high = currentprice + (currentprice * percent) / 100
 	low = currentprice - (currentprice * percent) / 100
 	UTC = UTCtoDateTime(dateID)
-	StockPricePlot(stockprice, UTC,high,low, companyid)
+	StockPricePlot(stockprice, UTC,high,low, companyid, percent)
