@@ -11,7 +11,7 @@ import datetime
 from datetime import datetime, timezone
 import argparse
 import sys
-quandl.ApiConfig.api_key = "xX7tGtBt1T4fqjsxML-H"
+quandl.ApiConfig.api_key = "pswiJNsHMxq_4dzoRo7c"
 def DateParse(timestamp,companyid):
 	file = urlopen("http://finance.yahoo.com/quote/"+companyid+"/options?p="+companyid+"&straddle=true")
 	text = file.read()
