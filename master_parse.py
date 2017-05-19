@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import argparse
 import sys
 quandl.ApiConfig.api_key = "pswiJNsHMxq_4dzoRo7c"
+#Retrieves dates for a given company's options
 def DateParse(timestamp,companyid):
 	file = urlopen("http://finance.yahoo.com/quote/"+companyid+"/options?p="+companyid+"&straddle=true")
 	text = file.read()
@@ -26,7 +27,7 @@ def DateParse(timestamp,companyid):
 	while (timestamp >= int(dateID[i])):
 		i +=1;
 	return dateID[i];
-
+#Retrieves the strike prices
 def StrikeParse(dateID,currentprice,companyid):
 	url = urllib.request.urlopen("http://finance.yahoo.com/quote/"+companyid+"/options?p="+companyid+"&straddle=true&date="+dateID)
 	text = url.read()
@@ -34,13 +35,6 @@ def StrikeParse(dateID,currentprice,companyid):
 	calls = soup.find_all("td" , {"class" : "data-col0 Ta(end) Pstart(10px)"})
 	strikes = soup.find_all("td" , {"class" : "data-col5 Ta(c) Px(10px)"})
 	puts = soup.find_all("td", {"class" : "data-col6 Ta(end) Pstart(10px)"})
-	"""
-	for x in range (0, len(strikes)):
-		print (calls[x].text)
-		print (strikes[x].text)
-		print (puts[x].text)
-		print("\n")
-	"""
 	lastStockPrice = currentprice;
 	difference = []
 	min = sys.maxsize
@@ -51,14 +45,9 @@ def StrikeParse(dateID,currentprice,companyid):
 			min = a;
 			index = x;
 
-	#print(index);
-	#print(calls[index].text)
-	#print(strikes[index].text)
-	#print(puts[index].text)
 	delta = (((float)(calls[index].text) + (float)(puts[index].text))/lastStockPrice) * 100;
-	#print(delta)
 	return delta
-
+#Retrieves stock price data
 def StockPricePlot(stockprice,UTC,high,low,companyid): 
 	
 	data = [
@@ -84,25 +73,18 @@ def StockPricePlot(stockprice,UTC,high,low,companyid):
 	fig = go.Figure(data=data, layout=layout)
 
 	# IPython notebook
-	# py.iplot(fig, filename='pandas/line-plot-title')
 
 	url = py.plot(fig, filename='stockprice-history',auto_open = False)
-	#print(tls.get_embed("https://plot.ly/~jledinh/1/apple-stockprice-history/#plot"))
-
+#Converts from UTC date formate to Year-Month-Date
 def UTCtoDateTime(dateID):
 	return datetime.fromtimestamp(int(dateID)+86400).strftime('%Y-%m-%d')
 
 #Main Function
 def main(n, stockindex, companyid):
-#parser = argparse.ArgumentParser(description='Process ish')
-#parser.add_argument('', metavar='N', type=string,)
-#print(s[1][0:4]);
 	year = int(n[0:4])
 	month = int(n[5:7])
 	day = int(n[8:10])
 	d = int(datetime(year,month,day).timestamp());
-	#stockindex = "NASDAQ"
-	#companyid = "AAPL"
 	dateID = DateParse(d,companyid);
 	stockprice =  quandl.get("GOOG/"+stockindex+"_"+companyid,trim_start="2017-05-01")
 	currentprice = stockprice['Close'][len(stockprice)-1]
@@ -111,4 +93,3 @@ def main(n, stockindex, companyid):
 	low = currentprice - (currentprice * percent) / 100
 	UTC = UTCtoDateTime(dateID)
 	StockPricePlot(stockprice, UTC,high,low, companyid)
-	print (d)
