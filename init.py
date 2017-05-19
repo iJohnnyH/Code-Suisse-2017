@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+import scraping/master_parse
+
 app = Flask(__name__)
 
 
@@ -14,3 +16,9 @@ def date(date):
 
 if __name__ == "__main__":
     app.run()
+
+@app.route('/newCompany', methods = ['POST'])
+def newCompany():
+    company = request.form['companyName']
+    print(company)
+    return render_template('docs/indexWithGraph.html')
