@@ -75,6 +75,7 @@ def StockPricePlot(stockprice,dateID,high,low,companyid):
 	]
 
 	layout = go.Layout(
+		hovermode= 'closest',
 	    title=companyid+' Stockprice History',
 	    yaxis=dict(title='Stockprice'),
 	    xaxis=dict(title='Date', range=["2017-05-01","2017-06-31"])
