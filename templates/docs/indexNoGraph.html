@@ -62,11 +62,15 @@
       <div class="container">
         <div class="starter-template">
           <h1>AAPL Graph</h1>
-            
+                      <div>
+              <form action="/newCompany" method="post">
+                <input type="text" value="Exchange"></input>
+                <input type="text" value="Company"></input>
+              </form>
+            </div>
             <label for="datepicker"><h2>Event Date:</h2></label>
             <br>
             <input type="text" id="datepicker">
-            
             <br/>
             <script src="static/calendarForm/pikaday.js"></script>
             <script>
@@ -87,7 +91,7 @@
         </div>
         <div>
           <marquee>{{eventTitles}}</marquee>
-          <iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~dennissun1/3.embed"></iframe>
+          <iframe width="900" height="500" frameborder="0" scrolling="no" src="//plot.ly/~dennissun1/3.embed"></iframe>
         </div>
       </div><!-- /.container -->
 
