@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
-import requests
+import urllib
 
-file = open("AAPL Option Chain _ Apple Inc. Stock - Yahoo Finance.htm")
-text = file.read()
+url = "https://finance.yahoo.com/quote/AAPL/options?p=AAPL&straddle=true&date=1496361600"
+html = urllib.urlopen(url)
+text = html.read()
 soup = BeautifulSoup(text, 'lxml')
 calls = soup.find_all("td" , {"class" : "data-col0 Ta(end) Pstart(10px)"})
 strikes = soup.find_all("td" , {"class" : "data-col5 Ta(c) Px(10px)"})
@@ -24,10 +25,11 @@ for x in range(0, len(strikes)):
 		min = a;
 		index = x;
 
+print(index);
 print(calls[index].text)
 print(strikes[index].text)
 print(puts[index].text)
-delta = ((float)(calls[index].text) + (float)(puts[index].text))/lastStockPrice
+delta = (((float)(calls[index].text) + (float)(puts[index].text))/lastStockPrice) * 100;
 print(delta)
 
 
