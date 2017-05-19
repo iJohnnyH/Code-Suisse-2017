@@ -19,3 +19,6 @@ Architecture
         -Bootstrap css and javascript files for the web app
     Pikaday
         -Javascript project that was used for the calendar date selector
+    Scraping
+        -Folder that contains python files that were used to webscrape and retrieve data. These files were later combined into    
+         master_parse.py
