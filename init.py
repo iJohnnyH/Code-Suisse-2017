@@ -1,15 +1,15 @@
 from flask import Flask, render_template, request
 import master_parse
-
 app = Flask(__name__)
+
 
 @app.route("/")
 def index():
     return render_template("docs/indexNoGraph.html")
-    
+
+
 @app.route("/<date>")
 def date(date):
-    print(date)
     datef = date.split(" ")
     year = datef[3]
     day = datef[2]
